@@ -1,0 +1,4 @@
+/* Element */
+.element__delete-button_hidden {
+  z-index: -1;
+}

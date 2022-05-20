@@ -1,0 +1,19 @@
+/* Popup */
+.popup__title {
+  margin: 34px 0 54px;
+  width: 358px;
+  color: #000;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.21;
+  text-align: left;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__title {
+    margin: 25px auto 75px;
+    width: 238px;
+    font-size: 18px;
+    text-align: center;
+  }
+}

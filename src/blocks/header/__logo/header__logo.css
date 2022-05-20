@@ -1,0 +1,21 @@
+/* Header */
+.header__logo {
+  margin: 0;
+  max-width: 142px;
+  width: 100%;
+  max-height: 33px;
+}
+
+@media screen and (max-width: 899px) {
+  .header__logo {
+    margin-left: calc((320px - 282px) / 2);
+  }
+}
+
+@media screen and (max-width: 720px)  {
+  .header__logo {
+    min-width: 104px;
+    width: 25%;
+    min-height: 25px;
+  }
+}

@@ -1,0 +1,10 @@
+/* Element */
+.element__like-info {
+  margin: 0;
+  width: 25px;
+  height: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

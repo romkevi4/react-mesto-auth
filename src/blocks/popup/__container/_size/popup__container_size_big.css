@@ -1,0 +1,7 @@
+/* Popup */
+.popup__container_size_big {
+  max-width: 75vw;
+  max-height: 75vh;
+  height: 100%;
+  flex-direction: column;
+}

@@ -1,0 +1,4 @@
+/* Element */
+.element__delete-button_visible {
+  z-index: 1;
+}

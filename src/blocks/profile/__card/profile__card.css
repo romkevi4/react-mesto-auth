@@ -1,0 +1,27 @@
+/* Profile */
+.profile__card {
+  margin: 0;
+  padding: 0;
+  max-width: calc(120px + 30px + 336px);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__card {
+    padding-bottom: 36px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .profile__card {
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 26px;
+  }
+}

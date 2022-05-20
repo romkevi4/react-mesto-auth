@@ -1,0 +1,15 @@
+/* Main */
+.main {
+  margin: 0 auto;
+  padding: 40px 0 66px;
+  max-width: 880px;
+  min-width: 320px;
+  width: 100%;
+  flex: 1;
+}
+
+@media screen and (max-width: 540px) {
+  .main {
+    padding: 42px 0 48px;
+  }
+}

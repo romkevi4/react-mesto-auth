@@ -1,0 +1,8 @@
+/* Element */
+.element__like-button_inactive  {
+  background-image: url(../../../../images/element/__like-button/element-like-button.svg);
+}
+
+.element__like-button_inactive:hover {
+  opacity: .5;
+}

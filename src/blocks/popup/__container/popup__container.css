@@ -1,0 +1,14 @@
+/* Popup */
+.popup__container {
+  margin: auto;
+  padding: 0;
+  min-width: 430px;
+  display: flex;
+  position: relative;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__container {
+    min-width: 282px;
+  }
+}

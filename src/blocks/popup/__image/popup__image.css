@@ -1,0 +1,11 @@
+/* Popup */
+.popup__image {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popup__image:hover {
+  cursor: default;
+}
