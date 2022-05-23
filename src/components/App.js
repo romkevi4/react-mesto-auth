@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import { api } from '../utils/api';
 
@@ -165,46 +166,62 @@ export default function App() {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="App">
                 <div className="page">
-                    {/*---------- Основные ----------*/}
-                    <Header />
-                    <Main
-                        cards={cards}
-                        onEditProfile={handleEditProfileClick}
-                        onAddPlace={handleAddPlaceClick}
-                        onEditAvatar={handleEditAvatarClick}
-                        onCardClick={handleCardClick}
-                        onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
-                    />
-                    <Footer />
+                    <Switch>
+                        {/*---------- Регистрация----------*/}
+                        <Route path="/sign-up">
+
+                        </Route>
 
 
-                    {/*---------- Попапы ----------*/}
-                    <EditProfilePopup
-                        isOpen={isEditProfilePopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateUser={handleUpdateUser}
-                    />
-                    <EditAvatarPopup
-                        isOpen={isEditAvatarPopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateAvatar={handleUpdateAvatar}
-                    />
-                    <AddPlacePopup
-                        isOpen={isAddPlacePopupOpen}
-                        onClose={closeAllPopups}
-                        onAddPlace={handleAddPlaceSubmit}
-                    />
-                    <PopupWithForm
-                        title="Вы уверены?"
-                        name="deleteCard"
-                        btnText="Да"
-                        onClose={closeAllPopups}
-                    />
-                    <ImagePopup
-                        card={selectedCard}
-                        onClose={closeAllPopups}
-                    />
+                        {/*---------- Авторизация ----------*/}
+                        <Route path="/sign-in">
+
+                        </Route>
+
+
+                        {/*---------- Основные компоненты ----------*/}
+                        <Route path="/"> {/* TODO: Нужно добавить путь */}
+                            <Header />
+                            <Main
+                                cards={cards}
+                                onEditProfile={handleEditProfileClick}
+                                onAddPlace={handleAddPlaceClick}
+                                onEditAvatar={handleEditAvatarClick}
+                                onCardClick={handleCardClick}
+                                onCardLike={handleCardLike}
+                                onCardDelete={handleCardDelete}
+                            />
+                            <Footer />
+
+
+                            {/* Попапы */}
+                            <EditProfilePopup
+                                isOpen={isEditProfilePopupOpen}
+                                onClose={closeAllPopups}
+                                onUpdateUser={handleUpdateUser}
+                            />
+                            <EditAvatarPopup
+                                isOpen={isEditAvatarPopupOpen}
+                                onClose={closeAllPopups}
+                                onUpdateAvatar={handleUpdateAvatar}
+                            />
+                            <AddPlacePopup
+                                isOpen={isAddPlacePopupOpen}
+                                onClose={closeAllPopups}
+                                onAddPlace={handleAddPlaceSubmit}
+                            />
+                            <PopupWithForm
+                                title="Вы уверены?"
+                                name="deleteCard"
+                                btnText="Да"
+                                onClose={closeAllPopups}
+                            />
+                            <ImagePopup
+                                card={selectedCard}
+                                onClose={closeAllPopups}
+                            />
+                        </Route>
+                    </Switch>
                 </div>
             </div>
         </CurrentUserContext.Provider>
