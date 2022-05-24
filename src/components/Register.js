@@ -3,14 +3,11 @@ import React from 'react';
 import FormWithRegistrationData from './FormWithRegistrationData';
 
 
-export default function Register() {
+export default function Register({ children }) {
     return (
         <>
             <FormWithRegistrationData formTitle="Регистрация" formBtnText="Зарегистрироваться" />
-            <p>
-                Уже зарегистрированы?
-                <link to="">Войти</link>
-            </p>
+            {children}
         </>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import { api } from '../utils/api';
 
@@ -14,6 +14,8 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Login from './Login';
+import Register from "./Register";
 
 
 
@@ -168,19 +170,35 @@ export default function App() {
                 <div className="page">
                     <Switch>
                         {/*---------- Регистрация----------*/}
-                        <Route path="/sign-up">
-
+                        <Route path="/"> {/*TODO: нужно вернуть /sign-up*/}
+                            <Header
+                                userEmail=""
+                                headerLinkClass=""
+                                linkText="Регистрация"
+                            />
+                            <Login />
                         </Route>
 
 
                         {/*---------- Авторизация ----------*/}
-                        <Route path="/sign-in">
+                        <Route path="/asdasd">
+                            <Header
+                                userEmail=""
+                                headerLinkClass=""
+                                linkText="Войти"
+                            />
+                            <Register>
+                                <p className="auth__text">
+                                    Уже зарегистрированы?
+                                    <Link to="/" className="auth__link">Войти</Link>
+                                </p>
+                            </Register>
 
                         </Route>
 
 
                         {/*---------- Основные компоненты ----------*/}
-                        <Route path="/"> {/* TODO: Нужно добавить путь */}
+                        <Route path="/sign-up"> {/* TODO: Нужно исправить путь */}
                             <Header />
                             <Main
                                 cards={cards}

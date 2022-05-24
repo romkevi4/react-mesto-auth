@@ -1,0 +1,16 @@
+/* Auth */
+.auth__link {
+  margin: 0 0 0 5px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  color: #fff;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.auth__link:hover {
+  cursor: pointer;
+  opacity: .6;
+}

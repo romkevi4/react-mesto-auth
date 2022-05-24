@@ -1,0 +1,8 @@
+/* Header */
+.header__link_auth {
+  color: #A9A9A9;
+}
+
+.header__link_auth:hover {
+  opacity: 1;
+}

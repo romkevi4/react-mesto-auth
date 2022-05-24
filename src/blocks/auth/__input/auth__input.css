@@ -1,0 +1,35 @@
+/* Auth */
+.auth__input {
+  margin: 0 0 30px;
+  padding: 0;
+  width: 358px;
+  height: 27px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #ccc;
+  opacity: 1;
+  outline: none;
+}
+
+.auth__input:last-of-type {
+  margin-bottom: 216px;
+}
+
+.auth__input:focus {
+  border-bottom-color: #fff;
+  color: #fff;
+  font-weight: 500;
+}
+
+.auth__input:focus::placeholder {
+  opacity: 0;
+}
+
+.auth__input::placeholder {
+  position: relative;
+  top: 0;
+  left: 0;
+}

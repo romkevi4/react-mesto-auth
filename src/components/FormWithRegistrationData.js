@@ -4,7 +4,6 @@ import React from 'react';
 export default function FormWithRegistrationData({ formTitle, formBtnText }) {
     return (
         <div className="auth">
-            <h2 className="auth__title">{formTitle}</h2>
             <form
                 method="post"
                 // onSubmit={}
@@ -12,6 +11,8 @@ export default function FormWithRegistrationData({ formTitle, formBtnText }) {
                 className="auth__form"
                 noValidate
             >
+                <h2 className="auth__title">{formTitle}</h2>
+
                 <input
                     type="email"
                     minLength="7"
@@ -25,6 +26,7 @@ export default function FormWithRegistrationData({ formTitle, formBtnText }) {
                     className="auth__input"
                     id="authEmail"
                 />
+
                 <input
                     type="password"
                     minLength="8"
@@ -38,6 +40,7 @@ export default function FormWithRegistrationData({ formTitle, formBtnText }) {
                     className="auth__input"
                     id="authPassword"
                 />
+
                 <button
                     aria-label={formBtnText}
                     type="submit"
