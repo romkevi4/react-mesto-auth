@@ -5,8 +5,6 @@ import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-
-
 export default function Main({
         cards,
         onEditProfile,
@@ -17,7 +15,6 @@ export default function Main({
         onCardDelete
     }) {
     const currentUser = useContext(CurrentUserContext);
-
 
     return (
         <main className="main">

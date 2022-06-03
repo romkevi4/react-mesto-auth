@@ -1,13 +1,20 @@
 import React from 'react';
 
 
-export default function FormWithRegistrationData({ formTitle, formBtnText }) {
+export default function FormWithRegistrationData({
+        formTitle,
+        formBtnText,
+        formParams,
+        onChange,
+        onSubmit
+    }) {
+
     return (
         <div className="auth">
             <form
                 method="post"
-                // onSubmit={}
-                // name={}
+                onSubmit={onSubmit}
+                name="formAuth"
                 className="auth__form"
                 noValidate
             >
@@ -15,13 +22,13 @@ export default function FormWithRegistrationData({ formTitle, formBtnText }) {
 
                 <input
                     type="email"
-                    minLength="7"
+                    minLength="6"
                     maxLength="40"
                     autoComplete="off"
-                    name="name"
+                    name="email"
                     placeholder="Email"
-                    // value={}
-                    // onChange={}
+                    value={formParams.email || ''}
+                    onChange={onChange}
                     required
                     className="auth__input"
                     id="authEmail"
@@ -29,13 +36,13 @@ export default function FormWithRegistrationData({ formTitle, formBtnText }) {
 
                 <input
                     type="password"
-                    minLength="8"
+                    minLength="2"
                     maxLength="40"
                     autoComplete="off"
-                    name="name"
+                    name="password"
                     placeholder="Пароль"
-                    // value={}
-                    // onChange={}
+                    value={formParams.password || ''}
+                    onChange={onChange}
                     required
                     className="auth__input"
                     id="authPassword"

@@ -1,7 +1,7 @@
 import { identificationData } from './initialData';
 
 
-// =============================== Формирование класса для работы с API ===============================
+// =============================== Формирование класса Api для работы с API ===============================
 class Api {
     constructor({ serverAddress, token, cohort }) {
         this._serverAddress = serverAddress;

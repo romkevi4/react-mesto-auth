@@ -6,8 +6,8 @@ import PopupWithForm from './PopupWithForm';
 
 
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-    const [nameCard, setNameCard] = useState('');
-    const [linkCard, setLinkCard] = useState('');
+    const [ nameCard, setNameCard ] = useState('');
+    const [ linkCard, setLinkCard ] = useState('');
 
 
     function handleChangeNameCard(evt) {

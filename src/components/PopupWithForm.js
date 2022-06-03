@@ -1,19 +1,24 @@
 import React from 'react';
 
+import Popup from './Popup';
 
-export default function PopupWithForm({ title, name, btnText, isOpen, onClose, onSubmit, children }) {
+
+export default function PopupWithForm({
+        title,
+        name,
+        btnText,
+        isOpen,
+        onClose,
+        onSubmit,
+        children
+    }) {
+
     return (
-        <div
-            className={`popup ${isOpen ? 'popup_opened' : ''}`}
-            id={`popup-${name}`}
-        >
-            <div className="popup__container">
-                <button
-                    onClick={onClose}
-                    aria-label="Закрыть"
-                    type="button"
-                    className="popup__close-button"
-                />
+            <Popup
+                partOfId={name}
+                isOpen={isOpen}
+                onClose={onClose}
+            >
                 <form
                     method="post"
                     onSubmit={onSubmit}
@@ -31,7 +36,7 @@ export default function PopupWithForm({ title, name, btnText, isOpen, onClose, o
                         {btnText}
                     </button>
                 </form>
-            </div>
-        </div>
+            </Popup>
+
     );
 }

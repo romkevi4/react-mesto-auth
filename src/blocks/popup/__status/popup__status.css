@@ -1,0 +1,10 @@
+/* Popup */
+.popup__status {
+  margin: 0 auto 60px;
+  width: 358px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.21;
+  color: #000;
+  text-align: center;
+}

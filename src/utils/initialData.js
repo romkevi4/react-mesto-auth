@@ -5,3 +5,7 @@ export const identificationData = {
     token: '9ff2b918-e6cb-4167-93e4-8edb12eea460',
     cohort: 'cohort-39'
 }
+
+export const authenticationData = {
+    serverAddress: 'https://auth.nomoreparties.co'
+}
