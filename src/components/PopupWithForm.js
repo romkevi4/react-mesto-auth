@@ -3,40 +3,30 @@ import React from 'react';
 import Popup from './Popup';
 
 
-export default function PopupWithForm({
-        title,
-        name,
-        btnText,
-        isOpen,
-        onClose,
-        onSubmit,
-        children
-    }) {
-
+export default function PopupWithForm({ isOpen, partOfId, onClose, children, ...props }) {
     return (
-            <Popup
-                partOfId={name}
-                isOpen={isOpen}
-                onClose={onClose}
+        <Popup
+            isOpen={isOpen}
+            partOfId={partOfId}
+            onClose={onClose}
+        >
+            <form
+                method="post"
+                onSubmit={props.onSubmit}
+                name={partOfId}
+                className="popup__form"
             >
-                <form
-                    method="post"
-                    onSubmit={onSubmit}
-                    name={name}
-                    className="popup__form"
-                    noValidate
+                <h2 className="popup__title">{props.title}</h2>
+                {children}
+                <button
+                    aria-label={props.btnText}
+                    type="submit"
+                    className="popup__save-button"
                 >
-                    <h2 className="popup__title">{title}</h2>
-                    {children}
-                    <button
-                        aria-label={btnText}
-                        type="submit"
-                        className="popup__save-button"
-                    >
-                        {btnText}
-                    </button>
-                </form>
-            </Popup>
+                    {props.btnText}
+                </button>
+            </form>
+        </Popup>
 
     );
 }

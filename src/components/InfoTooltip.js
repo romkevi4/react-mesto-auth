@@ -6,21 +6,21 @@ import iconError from '../images/popup/__icon/popup__icon_error.svg';
 import Popup from './Popup';
 
 
-export default function InfoTooltip({ authStatus, isOpen, onClose }) {
+export default function InfoTooltip({ isOpen, partOfId, onClose, ...props }) {
     return (
         <Popup
-            partOfId="auth"
             isOpen={isOpen}
             onClose={onClose}
+            partOfId={partOfId}
         >
             <img
-                src={authStatus ? iconCorrect : iconError}
+                src={props.authStatus ? iconCorrect : iconError}
                 alt="Подсказка"
                 className="popup__icon"
             />
             <p className="popup__status">
                 {
-                    authStatus
+                    props.authStatus
                         ? 'Вы успешно зарегистрировались!'
                         : 'Что-то пошло не так! Попробуйте ещё раз.'
                 }

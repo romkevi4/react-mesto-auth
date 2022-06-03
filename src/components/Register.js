@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import FormWithRegistrationData from './FormWithRegistrationData';
+import AuthForm from './AuthForm';
 
 
 export default function Register({ handleRegister, children }) {
@@ -25,7 +25,7 @@ export default function Register({ handleRegister, children }) {
 
     return (
         <>
-            <FormWithRegistrationData
+            <AuthForm
                 formTitle="Регистрация"
                 formBtnText="Зарегистрироваться"
                 formParams={formParams}

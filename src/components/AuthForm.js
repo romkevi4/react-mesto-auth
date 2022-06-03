@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function FormWithRegistrationData({
+export default function AuthForm({
         formTitle,
         formBtnText,
         formParams,
@@ -16,7 +16,6 @@ export default function FormWithRegistrationData({
                 onSubmit={onSubmit}
                 name="formAuth"
                 className="auth__form"
-                noValidate
             >
                 <h2 className="auth__title">{formTitle}</h2>
 

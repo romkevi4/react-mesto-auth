@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import FormWithRegistrationData from './FormWithRegistrationData';
+import AuthForm from './AuthForm';
 
 
 export default function Login({ handleLogin }) {
@@ -23,7 +23,7 @@ export default function Login({ handleLogin }) {
     }
 
     return (
-        <FormWithRegistrationData
+        <AuthForm
             formTitle="Вход"
             formBtnText="Войти"
             formParams={formParams}

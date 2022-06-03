@@ -1,28 +1,34 @@
 import React from 'react';
 
+import Popup from './Popup';
 
-export default function ImagePopup({ card, onClose }) {
+
+export default function ImagePopup({
+        isOpen,
+        partOfId,
+        onClose,
+        popupClass,
+        popupContainerClass,
+        ...props
+    }) {
+
     return (
-        <div
-            className={`popup popup_opacity ${card.link ? 'popup_opened' : ''}`}
-            id="popup-image"
+        <Popup
+            isOpen={props.card.link}
+            partOfId="image"
+            onClose={onClose}
+            popupClass={popupClass}
+            popupContainerClass={popupContainerClass}
+            card={props.card}
         >
-            <div className="popup__container popup__container_size_big">
-                <button
-                    onClick={onClose}
-                    aria-label="Закрыть"
-                    type="button"
-                    className="popup__close-button"
-                />
-                <img
-                    src={card.link}
-                    alt={card.name}
-                    className="popup__image"
-                />
-                <p className="popup__text">
-                    {card.name}
-                </p>
-            </div>
-        </div>
+            <img
+                src={props.card.link}
+                alt={props.card.name}
+                className="popup__image"
+            />
+            <p className="popup__text">
+                {props.card.name}
+            </p>
+        </Popup>
     );
 }

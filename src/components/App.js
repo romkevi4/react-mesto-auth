@@ -47,14 +47,14 @@ export default function App() {
         return auth.userRegistration(password, email)
             .then(() => {
                 setAuthStatus(true);
-                setIsAuthStatusPopupOpen(true);
-
                 history.push('/sign-in');
             })
             .catch(err => {
                 console.error(`Ошибка: ${err}`);
-                setIsAuthStatusPopupOpen(true);
                 setAuthStatus(false);
+            })
+            .finally(() => {
+                setIsAuthStatusPopupOpen(true);
             });
     }
 
@@ -239,6 +239,7 @@ export default function App() {
         setIsAuthStatusPopupOpen(false);
         setSelectedCard({});
     }
+
     
 
 
@@ -248,11 +249,6 @@ export default function App() {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="App">
                 <div className="page">
-                    {/*---------- Переадресация ----------*/}
-                    <Route path="/">
-                        {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-                    </Route>
-
                     <Switch>
                         {/*---------- Авторизация----------*/}
                         <Route path="/sign-in">
@@ -266,9 +262,10 @@ export default function App() {
                             <Login handleLogin={handleLogin}/>
 
                             <InfoTooltip
-                                authStatus={authStatus}
                                 isOpen={isAuthStatusPopupOpen}
+                                partOfId="auth-in"
                                 onClose={closeAllPopups}
+                                authStatus={authStatus}
                             />
                         </Route>
 
@@ -290,16 +287,20 @@ export default function App() {
                             </Register>
 
                             <InfoTooltip
-                                authStatus={authStatus}
                                 isOpen={isAuthStatusPopupOpen}
+                                partOfId="auth-up"
                                 onClose={closeAllPopups}
+                                authStatus={authStatus}
                             />
                         </Route>
 
 
-                        {/*---------- Карточки ----------*/}
-                        {/* Основные компоненты */}
-                        <Route path="/">
+                        {/*---------- Основные компоненты ----------*/}
+                        <ProtectedRoute
+                            path="/"
+                            loggedIn={loggedIn}
+                            cards={cards}
+                        >
                             <Header
                                 userEmail={userData.email}
                                 headerLinkClass="header__link_auth"
@@ -308,10 +309,7 @@ export default function App() {
                                 handleSignOut={signOut}
                             />
 
-                            <ProtectedRoute
-                                component={Main}
-                                path="/"
-                                loggedIn={loggedIn}
+                            <Main
                                 cards={cards}
                                 onEditProfile={handleEditProfileClick}
                                 onAddPlace={handleAddPlaceClick}
@@ -322,10 +320,16 @@ export default function App() {
                             />
 
                             <Footer />
+                        </ProtectedRoute>
+
+
+                        {/*---------- Переадресация ----------*/}
+                        <Route path="/">
+                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
                         </Route>
                     </Switch>
 
-                    {/* Попапы */}
+                    {/*---------- Попапы ----------*/}
                     <EditProfilePopup
                         isOpen={isEditProfilePopupOpen}
                         onClose={closeAllPopups}
@@ -345,15 +349,17 @@ export default function App() {
                     />
 
                     <PopupWithForm
+                        partOfId="deleteCard"
                         title="Вы уверены?"
-                        name="deleteCard"
                         btnText="Да"
                         onClose={closeAllPopups}
                     />
 
                     <ImagePopup
-                        card={selectedCard}
                         onClose={closeAllPopups}
+                        popupClass="popup_opacity"
+                        popupContainerClass="popup__container_size_big"
+                        card={selectedCard}
                     />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PopupWithForm from './PopupWithForm';
 
@@ -18,6 +18,11 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         setLinkCard(evt.target.value);
     }
 
+    useEffect(() => {
+        setNameCard('');
+        setLinkCard('');
+    }, [isOpen]);
+
     function handleSubmit(evt) {
         evt.preventDefault();
 
@@ -30,11 +35,11 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
     return (
         <PopupWithForm
-            title="Новое место"
-            name="addCard"
-            btnText="Создать"
             isOpen={isOpen}
+            partOfId="addCard"
             onClose={onClose}
+            title="Новое место"
+            btnText="Создать"
             onSubmit={handleSubmit}
         >
             <input

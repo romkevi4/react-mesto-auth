@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className="footer">
             <address className="footer__copyright">
-                &#169; 2022 Mesto Russia
+                &#169; {new Date().getFullYear()} Mesto Russia
             </address>
         </footer>
     );
