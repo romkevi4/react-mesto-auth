@@ -1,13 +1,10 @@
-import { identificationData } from './initialData';
+import { authenticationData } from './initialData';
 
 
 // =============================== Формирование класса Api для работы с API ===============================
 class Api {
-    constructor({ serverAddress, token, cohort }) {
-        this._serverAddress = serverAddress;
-        this._token = token;
-        this._cohort = cohort;
-        this._baseUrl = `${this._serverAddress}/v1/${this._cohort}`;
+    constructor({ serverAddress }) {
+        this._baseUrl = serverAddress;
     }
 
     // Проверка ответа сервера
@@ -24,8 +21,9 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
-                authorization: this._token
-            }
+                authorization: localStorage.getItem('token')
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -35,13 +33,14 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: this._token,
+                authorization: localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: objectWithUserData.name,
                 about: objectWithUserData.about
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -51,12 +50,13 @@ class Api {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: this._token,
+                authorization: localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 avatar: avatarUrl
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -66,8 +66,9 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: {
-                authorization: this._token
-            }
+                authorization: localStorage.getItem('token')
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -77,13 +78,14 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: {
-                authorization: this._token,
+                authorization: localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: objectWithCardData.name,
                 link: objectWithCardData.link
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -93,8 +95,9 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-                authorization: this._token
-            }
+                authorization: localStorage.getItem('token')
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -104,12 +107,13 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: {
-                authorization: this._token,
+                authorization: localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 likes: user
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -119,16 +123,17 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: {
-                authorization: this._token,
+                authorization: localStorage.getItem('token'),
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 likes: user
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
 }
 
 // Запросы серверу
-export const api = new Api(identificationData);
+export const api = new Api(authenticationData);

@@ -46,7 +46,7 @@ class Auth {
             body: JSON.stringify({
                 password: passwordData,
                 email: emailData
-            })
+            }),
         })
             .then(this._processResponseAuth);
     }
