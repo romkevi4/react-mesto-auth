@@ -37,7 +37,6 @@ export default function App() {
     const [ isAuthStatusPopupOpen, setIsAuthStatusPopupOpen ] = useState(false);
 
     const [ loggedIn, setLoggedIn ] = useState(false);
-    const [ userData, setUserData ] = useState({});
     const [ authStatus, setAuthStatus ] = useState(false);
     const history = useHistory();
 
@@ -47,11 +46,11 @@ export default function App() {
         return auth.userRegistration(password, email)
             .then(() => {
                 setAuthStatus(true);
-                history.push('/sign-in');
+                history.push('/signin');
             })
             .catch(err => {
-                console.error(`Ошибка: ${err}`);
                 setAuthStatus(false);
+                console.error(`Ошибка: ${err}`);
             })
             .finally(() => {
                 setIsAuthStatusPopupOpen(true);
@@ -76,20 +75,21 @@ export default function App() {
 
         if (token) {
             auth.validityCheck(token)
-                .then(res => {
-                    if (res) {
+                .then(res => res.data)
+                .then(data => {
+                    if (data) {
                         let userData = {
-                            _id: res.data._id,
-                            email: res.data.email
+                            _id: data._id,
+                            email: data.email
                         }
 
                         setLoggedIn(true);
-                        setUserData(userData);
+                        setCurrentUser(userData);
                     }
                 })
                 .catch(err => {
                     console.error(`Ошибка: ${err}`);
-                })
+                });
         }
     }
 
@@ -98,7 +98,7 @@ export default function App() {
         setLoggedIn(false);
         setIsAuthStatusPopupOpen(false);
         setAuthStatus(false);
-        history.push('/sign-in');
+        history.push('/signin');
     }
 
     useEffect(() => {
@@ -107,22 +107,27 @@ export default function App() {
 
     useEffect(() => {
         if (loggedIn) {
+            api._setToken();
+
+            Promise.all([api.getUserData(), api.getInitialCards()])
+                .then(([userData, cardsData]) => {
+                    setCurrentUser(userData.data);
+                    setCards(cardsData.data);
+                })
+                .catch(err => {
+                    console.error(`Ошибка: ${err}`);
+                });
+        }
+    }, [loggedIn])
+
+    useEffect(() => {
+        if (loggedIn) {
             history.push('/');
         }
-    }, [loggedIn]);
+    }, [loggedIn, history]);
 
 
     // ---------- Управление данными пользователя ----------
-    useEffect(() => {
-        api.getUserData()
-            .then(res => {
-                setCurrentUser(res);
-            })
-            .catch(err => {
-                console.error(`Ошибка: ${err}`);
-            });
-    }, []);
-
     const handleEditProfileClick = () => {
         setIsEditProfilePopupOpen(true);
     }
@@ -144,11 +149,12 @@ export default function App() {
     }
 
     function saveUserInfo({
-            apiRequest
+        apiRequest
         }) {
         return apiRequest
-            .then(res => {
-                setCurrentUser(res);
+            .then(res => res.data)
+            .then(data => {
+                setCurrentUser(data);
                 closeAllPopups();
             })
             .catch(err => {
@@ -158,18 +164,8 @@ export default function App() {
 
 
     // ---------- Управление данными карточек ----------
-    useEffect(() => {
-        api.getInitialCards()
-            .then(res => {
-                setCards(res);
-            })
-            .catch(err => {
-                console.error(`Ошибка: ${err}`);
-            });
-    }, []);
-
     const handleCardLike = (card) => {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(id => id === currentUser._id);
 
         if (!isLiked) {
             selectRequest({
@@ -185,10 +181,11 @@ export default function App() {
     }
 
     function selectRequest({
-           apiRequest,
-           cardData
+            apiRequest,
+            cardData
         }) {
         return apiRequest
+            .then(res => res.data)
             .then((newCard) => {
                 setCards((state) => state.map((c) => c._id === cardData._id ? newCard : c));
             })
@@ -198,12 +195,13 @@ export default function App() {
     }
 
     const handleCardDelete = (card) => {
-        const isOwn = card.owner._id === currentUser._id;
+        const isOwn = card.owner === currentUser._id;
 
         if (isOwn) {
             api.deleteCard(card._id)
+                .then(res => res.data)
                 .then(() => {
-                    setCards((state) => state.filter((c) => c.owner._id !== currentUser._id));
+                    setCards((state) => state.filter((c) => c._id !== card._id));
                 })
                 .catch(err => {
                     console.error(`Ошибка: ${err}`);
@@ -221,8 +219,9 @@ export default function App() {
 
     const handleAddPlaceSubmit = (objectWithCardData) => {
         api.saveNewCard(objectWithCardData)
-            .then(res => {
-                setCards([res, ...cards]);
+            .then(res => res.data)
+            .then(data => {
+                setCards([...cards, data]);
                 closeAllPopups();
             })
             .catch(err => {
@@ -240,7 +239,7 @@ export default function App() {
         setSelectedCard({});
     }
 
-    
+
 
 
 
@@ -251,15 +250,15 @@ export default function App() {
                 <div className="page">
                     <Switch>
                         {/*---------- Авторизация----------*/}
-                        <Route path="/sign-in">
+                        <Route path="/signin">
                             <Header
                                 userEmail=""
                                 headerLinkClass=""
                                 linkText="Регистрация"
-                                goToPath="/sign-up"
+                                goToPath="/signup"
                             />
 
-                            <Login handleLogin={handleLogin}/>
+                            <Login handleLogin={handleLogin} />
 
                             <InfoTooltip
                                 isOpen={isAuthStatusPopupOpen}
@@ -271,18 +270,18 @@ export default function App() {
 
 
                         {/*---------- Регистрация ----------*/}
-                        <Route path="/sign-up">
+                        <Route path="/signup">
                             <Header
                                 userEmail=""
                                 headerLinkClass=""
                                 linkText="Войти"
-                                goToPath="/sign-in"
+                                goToPath="/signin"
                             />
 
                             <Register handleRegister={handleRegister}>
                                 <p className="auth__text">
                                     Уже зарегистрированы?
-                                    <Link to="/sign-in" className="auth__link">Войти</Link>
+                                    <Link to="/signin" className="auth__link">Войти</Link>
                                 </p>
                             </Register>
 
@@ -302,10 +301,10 @@ export default function App() {
                             cards={cards}
                         >
                             <Header
-                                userEmail={userData.email}
+                                userEmail={currentUser.email}
                                 headerLinkClass="header__link_auth"
                                 linkText="Выйти"
-                                goToPath="/sign-in"
+                                goToPath="/signin"
                                 handleSignOut={signOut}
                             />
 
@@ -325,7 +324,7 @@ export default function App() {
 
                         {/*---------- Переадресация ----------*/}
                         <Route path="/">
-                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
                         </Route>
                     </Switch>
 

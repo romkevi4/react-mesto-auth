@@ -5,6 +5,12 @@ import { authenticationData } from './initialData';
 class Api {
     constructor({ serverAddress }) {
         this._baseUrl = serverAddress;
+        // this._token = token;
+    }
+
+    //Получение токена из localStorage
+    _setToken() {
+        this._token = localStorage.getItem('token');
     }
 
     // Проверка ответа сервера
@@ -21,9 +27,8 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
-                authorization: localStorage.getItem('token')
-            },
-            credentials: 'include'
+                authorization: `Bearer ${this._token}`
+            }
         })
             .then(this._processResponseData);
     }
@@ -33,14 +38,13 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: localStorage.getItem('token'),
+                authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: objectWithUserData.name,
                 about: objectWithUserData.about
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseData);
     }
@@ -50,13 +54,12 @@ class Api {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: localStorage.getItem('token'),
+                authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 avatar: avatarUrl
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseData);
     }
@@ -66,9 +69,8 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'GET',
             headers: {
-                authorization: localStorage.getItem('token')
-            },
-            credentials: 'include'
+                authorization: `Bearer ${this._token}`
+            }
         })
             .then(this._processResponseData);
     }
@@ -78,14 +80,13 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: {
-                authorization: localStorage.getItem('token'),
+                authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: objectWithCardData.name,
                 link: objectWithCardData.link
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseData);
     }
@@ -95,9 +96,8 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-                authorization: localStorage.getItem('token')
-            },
-            credentials: 'include'
+                authorization: `Bearer ${this._token}`
+            }
         })
             .then(this._processResponseData);
     }
@@ -107,13 +107,12 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: {
-                authorization: localStorage.getItem('token'),
+                authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 likes: user
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseData);
     }
@@ -123,13 +122,12 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: {
-                authorization: localStorage.getItem('token'),
+                authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
                 likes: user
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseData);
     }

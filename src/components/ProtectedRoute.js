@@ -5,7 +5,7 @@ export default function ProtectedRoute({ children, ...props }) {
     return (
         <Route>
             {() =>
-                props.loggedIn ? children : <Redirect to="/sign-in" />
+                props.loggedIn ? children : <Redirect to="/signin" />
             }
         </Route>
     );
