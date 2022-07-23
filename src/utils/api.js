@@ -28,7 +28,8 @@ class Api {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${this._token}`
-            }
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -44,7 +45,8 @@ class Api {
             body: JSON.stringify({
                 name: objectWithUserData.name,
                 about: objectWithUserData.about
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -59,7 +61,8 @@ class Api {
             },
             body: JSON.stringify({
                 avatar: avatarUrl
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -70,7 +73,8 @@ class Api {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${this._token}`
-            }
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -86,7 +90,8 @@ class Api {
             body: JSON.stringify({
                 name: objectWithCardData.name,
                 link: objectWithCardData.link
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -97,7 +102,8 @@ class Api {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`
-            }
+            },
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -112,7 +118,8 @@ class Api {
             },
             body: JSON.stringify({
                 likes: user
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
@@ -127,7 +134,8 @@ class Api {
             },
             body: JSON.stringify({
                 likes: user
-            })
+            }),
+            credentials: 'include'
         })
             .then(this._processResponseData);
     }
