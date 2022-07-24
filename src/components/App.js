@@ -66,6 +66,8 @@ export default function App() {
                 }
             })
             .catch(err => {
+                setAuthStatus(false);
+                setIsAuthStatusPopupOpen(true);
                 console.error(`Ошибка: ${err}`);
             });
     }
